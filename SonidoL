@@ -1,0 +1,23 @@
+#include "DatosL.h"
+
+const uint8_t pin = 0;
+
+uint8_t get(uint16_t i){
+  return pgm_read_byte_near(sonido+i);
+}
+
+uint16_t indice;
+
+void setup() {
+  pinMode(pin,OUTPUT);
+  indice = 0;
+}
+
+void loop() {
+  analogWrite(pin,get(indice));
+  ++indice;
+  if(indice==4000){
+    indice = 0;
+  }
+  delay(67890/4000);
+}
