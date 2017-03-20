@@ -1,0 +1,41 @@
+
+const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
+const int analogOutPin = 6; // Analog output pin that the LED is attached to
+
+
+int outputValue;
+
+void calculodeoutputValue () {
+  int sensorValue  = analogRead(A0);
+  outputValue = sensorValue /4;
+
+}
+
+void printoutputValue (){
+  
+  uint32_t t = millis();
+  Serial.println('\n');
+  for(int i=0;i<4000;++i){
+    calculodeoutputValue();
+    Serial.print(outputValue);
+    Serial.print(',');
+    if(i%40 == 0){ //si no tiene resto, es decir si es multiplo de 40 
+      Serial.println();
+    }
+  }
+  Serial.println('\n');
+  Serial.println((millis()-t)/1000.);
+}
+void setup() {
+
+  Serial.begin(1200);
+  pinMode(13,OUTPUT);
+  digitalWrite(13,LOW);
+  while(!analogRead(A0));
+  digitalWrite(13,HIGH);
+  printoutputValue();
+}
+
+void loop() {
+
+}
